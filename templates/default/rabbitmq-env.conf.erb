@@ -4,10 +4,10 @@
 
 <% if node['rabbitmq']['ssl'] -%>
 export ERL_SSL_PATH=$(erl -eval 'io:fwrite([code:lib_dir(ssl, ebin)]),halt().' -noshell)
-export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-pa ${ERL_SSL_PATH} \
+export RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-pa ${ERL_SSL_PATH} \
 -proto_dist inet_tls \
 -ssl_dist_opt server_certfile <%= node['rabbitmq']['ssl_dist_cert']%> \
--ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true
+-ssl_dist_opt server_secure_renegotiate true client_secure_renegotiate true"
 <% end -%>
 
 <% if node['rabbitmq']['local_erl_networking'] -%>
